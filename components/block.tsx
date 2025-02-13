@@ -67,6 +67,9 @@ export interface ConsoleOutput {
   contents: Array<ConsoleOutputContent>;
 }
 
+type SearchMode = 'search' | 'deep-research';
+
+
 function PureBlock({
   chatId,
   input,
@@ -82,6 +85,8 @@ function PureBlock({
   reload,
   votes,
   isReadonly,
+  searchMode,
+  setSearchMode,
 }: {
   chatId: string;
   input: string;
@@ -107,6 +112,8 @@ function PureBlock({
     chatRequestOptions?: ChatRequestOptions,
   ) => Promise<string | null | undefined>;
   isReadonly: boolean;
+  searchMode: SearchMode;
+  setSearchMode: (mode: SearchMode) => void;
 }) {
   const { block, setBlock } = useBlock();
 
@@ -342,6 +349,8 @@ function PureBlock({
 
                 <form className="flex flex-row gap-2 relative items-end w-full px-4 pb-4">
                   <MultimodalInput
+                    searchMode={searchMode}
+                    setSearchMode={setSearchMode}
                     chatId={chatId}
                     input={input}
                     setInput={setInput}
