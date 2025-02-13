@@ -39,12 +39,18 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
     models.find((model) => model.id === modelIdFromCookie)?.id ||
     DEFAULT_MODEL_NAME;
 
+  const reasoningModelIdFromCookie = cookieStore.get('reasoning-model-id')?.value;
+  const reasoningModelId =
+    models.find((model) => model.id === reasoningModelIdFromCookie)?.id ||
+    DEFAULT_MODEL_NAME;
+
   return (
     <>
       <Chat
         id={chat.id}
         initialMessages={convertToUIMessages(messagesFromDb)}
         selectedModelId={selectedModelId}
+        selectedReasoningModelId={reasoningModelId}
         selectedVisibilityType={chat.visibility}
         isReadonly={session?.user?.id !== chat.userId}
       />
