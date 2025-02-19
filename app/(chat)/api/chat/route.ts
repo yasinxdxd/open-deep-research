@@ -390,7 +390,8 @@ export async function POST(request: Request) {
 
                   // Reasoning model
                   const result = await generateText({
-                    model: customModel(reasoningModel.apiIdentifier, true),
+                    model: customModel(reasoningModel.apiIdentifier, false), // true
+                    // model: liteLLMmodel(reasoningModel.apiIdentifier, false),
                     prompt: `You are a research agent analyzing findings about: ${topic}
                             You have ${timeRemainingMinutes} minutes remaining to complete the research but you don't need to use all of it.
                             Current findings: ${findings
@@ -609,7 +610,7 @@ export async function POST(request: Request) {
                 });
 
                 const finalAnalysis = await generateText({
-                  model: customModel(reasoningModel.apiIdentifier, true),
+                  model: customModel(reasoningModel.apiIdentifier, false), // true
                   maxTokens: 16000,
                   prompt: `Create a comprehensive long analysis of ${topic} based on these findings:
                           ${researchState.findings
@@ -704,6 +705,7 @@ export async function POST(request: Request) {
           functionId: 'stream-text',
         },
       });
+      console.log(result.text);
 
       result.mergeIntoDataStream(dataStream);
     },
