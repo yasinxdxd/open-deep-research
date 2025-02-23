@@ -3,7 +3,7 @@ import { experimental_wrapLanguageModel as wrapLanguageModel } from 'ai';
 import { openrouter } from '@openrouter/ai-sdk-provider';
 import { togetherai } from '@ai-sdk/togetherai';
 
-import { liteLLMmodel } from '@/lib/ai/proxy-provider';
+import { lite_llm } from './lite-provider';
 
 import { customMiddleware } from "./custom-middleware";
 // Type definition for valid reasoning models used for research and structured outputs
@@ -68,9 +68,7 @@ export const customModel  = (apiIdentifier: string, forReasoning: boolean = fals
   const model = modelId === 'deepseek-ai/DeepSeek-R1'
     ? togetherai(modelId)
     // : openai(modelId);
-    : liteLLMmodel(modelId);
-
-  // await generateTextExample();
+    : lite_llm(modelId);
 
   console.log("Using model:", modelId);
 
